@@ -1,0 +1,66 @@
+/* ============================================================
+   Global styles: Tailwind base + custom overrides
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google font */
+
+
+/* --- Custom base resets --- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-gray-800 antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-bold leading-tight;
+  }
+}
+
+/* --- Reusable component classes --- */
+@layer components {
+  /* Primary CTA button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary-500 text-white font-semibold
+           px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors duration-200 shadow;
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-primary-500 text-primary-500
+           font-semibold px-6 py-3 rounded-lg hover:bg-primary-500 hover:text-white
+           transition-colors duration-200;
+  }
+
+  /* Section padding utility */
+  .section-padding {
+    @apply py-16 px-4 md:px-8 lg:px-16;
+  }
+
+  /* Card shadow */
+  .card {
+    @apply bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200 p-6;
+  }
+
+  /* Section heading */
+  .section-title {
+    @apply text-3xl md:text-4xl font-extrabold text-primary-900 mb-4;
+  }
+
+  /* Yellow accent underline (inspired by MollyMaid) */
+  .underline-accent {
+    @apply relative;
+  }
+  .underline-accent::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 w-16 h-1 bg-accent-400 rounded;
+  }
+}
