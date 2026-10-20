@@ -1,3 +1,7 @@
+import React from "react";
+import { FaFacebookF, FaInstagram, FaXTwitter, FaLinkedinIn } from "react-icons/fa6";
+import { MdOutlineCleaningServices } from "react-icons/md"; // Fallback icon if image is not ready
+
 /**
  * Footer Component
  * ─────────────────
@@ -6,8 +10,6 @@
  *  - Navigation columns (Services, Company, Support)
  *  - Social media icons
  *  - Legal links + copyright
- *
- * Design inspired by JaniKing's multi-column footer layout
  */
 
 const FOOTER_LINKS = {
@@ -38,12 +40,12 @@ const FOOTER_LINKS = {
   ],
 };
 
-// Social icons using Unicode/emoji (replace with SVG in production)
+// Social icons using react-icons
 const SOCIAL = [
-  { label: "Facebook", icon: "f", href: "#" },
-  { label: "Instagram", icon: "in", href: "#" },
-  { label: "Twitter/X", icon: "𝕏", href: "#" },
-  { label: "LinkedIn", icon: "li", href: "#" },
+  { label: "Facebook", Icon: FaFacebookF, href: "#" },
+  { label: "Instagram", Icon: FaInstagram, href: "#" },
+  { label: "Twitter/X", Icon: FaXTwitter, href: "#" },
+  { label: "LinkedIn", Icon: FaLinkedinIn, href: "#" },
 ];
 
 export default function Footer() {
@@ -55,9 +57,14 @@ export default function Footer() {
 
         {/* Brand column (2 columns wide) */}
         <div className="lg:col-span-2">
+          
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">🧹</span>
+            {/* OPTION 1: Use your actual image logo. Just place your logo.png or logo.svg in your public folder and update the src */}
+            {/* <img src="/sparkleclean-logo.svg" alt="SparkleClean" className="h-8 w-auto" /> */}
+            
+            {/* OPTION 2: Icon + Text logo (Active by default until you add your image) */}
+            <MdOutlineCleaningServices className="text-3xl text-accent-400" />
             <span className="text-xl font-extrabold tracking-tight">
               Sparkle<span className="text-accent-400">Clean</span>
             </span>
@@ -69,16 +76,19 @@ export default function Footer() {
 
           {/* Social links */}
           <div className="flex gap-3">
-            {SOCIAL.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                aria-label={s.label}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary-500 flex items-center justify-center text-xs font-bold transition-colors"
-              >
-                {s.icon}
-              </a>
-            ))}
+            {SOCIAL.map((s) => {
+              const Icon = s.Icon;
+              return (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary-500 flex items-center justify-center text-sm transition-colors"
+                >
+                  <Icon />
+                </a>
+              );
+            })}
           </div>
 
           {/* Phone */}
