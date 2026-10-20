@@ -1,19 +1,25 @@
 /**
  * Services Component
  * ───────────────────
- * Grid of service cards covering both:
- *  - Residential services  (à la MollyMaid)
- *  - Commercial services   (à la JaniKing)
+ * Two-part section:
  *
- * Card layout (top → bottom):
- *  1. Background image banner at the top
- *  2. Centered service title
- *  3. Centered description
- *  4. Tag pill
- *  5. "Get a Quote" button with hover effect
+ *  PART 1 — CurtainSplitHero (interactive curtain animation)
+ *    • Uses framer-motion to fan out 8 service photos like a curtain
+ *    • Scroll or click inside to open/close the curtain
+ *    • Mouse parallax on each card
+ *    • Reuses the SAME Unsplash images as the cards below
+ *
+ *  PART 2 — Service cards grid (original layout preserved)
+ *    • Image banner → centered Title → Desc → Tag → CTA button
+ *    • 4-column on desktop, 2-col on tablet, 1-col on mobile
+ *
+ * Inspired by JaniKing (commercial) + MollyMaid (residential) layouts
  */
 
-// ── Service data with Unsplash background images ──────────────────────────────────────────────
+// ── Import the curtain animation from /components/ui/ ─────────
+import CurtainSplitHero from "./ui/curtain-split-hero";
+
+// ── Service data — images shared with CurtainSplitHero ────────
 const SERVICES = [
   {
     img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80",
@@ -65,14 +71,14 @@ const SERVICES = [
   },
 ];
 
-// ── Tag pill colors ───────────────────────────────────────────
+// ── Tag pill colours ──────────────────────────────────────────
 const TAG_COLORS = {
   Residential: "bg-green-100 text-green-700 border border-green-200",
   Commercial:  "bg-blue-100  text-blue-700  border border-blue-200",
   Specialty:   "bg-amber-100 text-amber-700 border border-amber-200",
 };
 
-// ── Button hover color by tag type ───────────────────────────
+// ── CTA button colour per tag ─────────────────────────────────
 const BTN_COLORS = {
   Residential: "bg-green-600  hover:bg-green-700",
   Commercial:  "bg-primary-500 hover:bg-primary-700",
@@ -84,8 +90,8 @@ export default function Services() {
     <section id="services" className="section-padding bg-gray-50">
       <div className="max-w-7xl mx-auto">
 
-        {/* ── Section header ── */}
-        <div className="text-center mb-12">
+        {/* ── Section header ──
+        <div className="text-center mb-10">
           <p className="text-accent-500 font-semibold uppercase tracking-widest text-sm mb-2">
             What We Offer
           </p>
@@ -96,64 +102,30 @@ export default function Services() {
             From cozy homes to large commercial spaces, our certified teams deliver consistent,
             high-quality results backed by our 100% satisfaction guarantee.
           </p>
+        </div> */}
+
+        {/* ════════════════════════════════════════════════════════
+            PART 1 — Curtain Split Hero (interactive fan-out)
+            Scroll or click inside the box to open / close cards
+        ════════════════════════════════════════════════════════ */}
+        <div className="mb-14">
+          <CurtainSplitHero />
         </div>
 
-        {/* ── Service cards grid ── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES.map((service) => (
-            <div
-              key={service.title}
-              /* Card container — flex column so button sticks to the bottom */
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden
-                         flex flex-col group transition-all duration-300 hover:-translate-y-1"
-            >
+        ── Divider label ──
+        <div className="flex items-center gap-4 mb-10">
+          <div className="flex-1 h-px bg-gray-200" />
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest whitespace-nowrap">
+            Browse All Services
+          </p>
+          <div className="flex-1 h-px bg-gray-200" />
+        </div>
 
-              {/* ── 1. Background image banner ── */}
-              <div className="relative h-44 overflow-hidden">
-                {/* Actual service image */}
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-500
-                             group-hover:scale-110"
-                />
-
-                {/* Dark gradient overlay so any future text on image stays readable */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              </div>
-
-              {/* ── Card body (grows to push button down) ── */}
-              <div className="flex flex-col items-center text-center flex-1 px-5 py-5 gap-3">
-
-                {/* 2. Centered service title */}
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary-500
-                               transition-colors duration-200 leading-snug">
-                  {service.title}
-                </h3>
-
-                {/* 3. Centered description */}
-                <p className="text-gray-500 text-sm leading-relaxed flex-1">
-                  {service.desc}
-                </p>
-
-                {/* 4. Tag pill */}
-                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${TAG_COLORS[service.tag]}`}>
-                  {service.tag}
-                </span>
-
-                {/* 5. CTA button with hover animation */}
-                <a
-                  href="#contact"
-                  className={`mt-1 w-full text-center text-sm font-bold text-white
-                             py-2.5 rounded-lg transition-all duration-200 shadow-sm
-                             hover:shadow-md active:scale-95 ${BTN_COLORS[service.tag]}`}
-                >
-                  Get a Quote →
-                </a>
-
-              </div>
-            </div>
-          ))}
+        {/* ════════════════════════════════════════════════════════
+            PART 2 — Service cards grid
+            Image → Title (centered) → Desc → Tag → CTA button
+        ════════════════════════════════════════════════════════ */}
+        
         </div>
       </div>
     </section>
