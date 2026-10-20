@@ -10,6 +10,12 @@ module.exports ={
     extend: {
       // Custom brand colors inspired by JaniKing & MollyMaid
       colors: {
+        background: "#ffffff",
+        foreground: "#0f172a",
+        muted: {
+          DEFAULT: "#f1f5f9",
+          foreground: "#64748b",
+        },
         primary: {
           50:  "#e8f5ff",
           100: "#c3e3ff",
