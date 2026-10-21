@@ -1,10 +1,16 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('tailwindcss').Config} */
-module.exports ={
+export default {
   // Scan all React component files for class names
   darkMode: "class",  // Enable dark mode via a 'dark' class on <html>
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    path.join(__dirname, "index.html"),
+    path.join(__dirname, "src/**/*.{js,jsx,ts,tsx}"),
   ],
   theme: {
     extend: {
